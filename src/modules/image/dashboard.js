@@ -19,7 +19,7 @@ export default {
         }
     },
     methods: {
-        reset(){
+        reset() {
             this.upload.status = 'ready'
         },
         insertImageUrl() {
@@ -32,13 +32,17 @@ export default {
         pick() {
             this.$refs.file.click()
         },
-        setUploadError(msg){
+        setUploadError(msg) {
             this.upload.status = 'error'
             this.upload.errorMsg = msg
         },
         process() {
             const component = this
             const config = this.$options.module.config
+            if (this.$parent.options && this.$parent.options.image) {
+                //如果存在标签参数传入配置 进行合并
+                Object.assign(config, this.$parent.options.image);
+            }
             // compatibility with older format
             // {
             //     server: null,
@@ -64,7 +68,9 @@ export default {
             // }
 
             if (!config.upload && typeof config.server === 'string') {
-                config.upload = {url: config.server}
+                config.upload = {
+                    url: config.server
+                }
             }
             if (config.upload && !config.upload.url) {
                 config.upload = null
@@ -89,8 +95,8 @@ export default {
             this.$refs.file.value = null
 
             if (config.compress) {
-                config.compress.fieldName = config.upload && config.upload.fieldName
-                    ? config.upload.fieldName : 'image'
+                config.compress.fieldName = config.upload && config.upload.fieldName ?
+                    config.upload.fieldName : 'image'
                 lrz(file, config.compress).then((rst) => {
                     if (config.upload) {
                         component.uploadToServer(rst.file)

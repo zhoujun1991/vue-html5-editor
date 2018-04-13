@@ -1,7 +1,7 @@
 /**
  * Vue-html5-editor 1.1.0
  * https://github.com/PeakTai/vue-html5-editor
- * build at Thu Apr 13 2017 15:51:01 GMT+0800 (CST)
+ * build at Fri Apr 13 2018 12:09:35 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -18,12 +18,13 @@ function __$styleInject(css, returnValue) {
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
   style.type = 'text/css';
+  head.appendChild(style);
+  
   if (style.styleSheet){
     style.styleSheet.cssText = css;
   } else {
     style.appendChild(document.createTextNode(css));
   }
-  head.appendChild(style);
   return returnValue;
 }
 
@@ -156,7 +157,7 @@ var eraser = {
     }
 };
 
-var template$2 = "<div class=\"dashboard-font\" style=\"line-height: 36px\"> <div> <label>{{$parent.locale[\"heading\"]}}:</label> <button v-for=\"h in 6\" type=\"button\" @click=\"setHeading(h)\">H{{h}}</button> </div> <div> <label> {{$parent.locale[\"font name\"]}}: </label> <button v-for=\"name in nameList\" type=\"button\" @click=\"setFontName(name)\">{{name}}</button> </div> <div> <label> {{$parent.locale[\"font size\"]}}: </label> <button v-for=\"size in fontSizeList\" type=\"button\" @click=\"setFontSize(size)\">{{size}}</button> </div> <div> <label> {{$parent.locale[\"line height\"]}}: </label> <button v-for=\"lh in lineHeightList\" type=\"button\" @click=\"setLineHeight(lh)\"> {{lh}} </button> </div> </div>";
+var template$2 = "<div class=\"dashboard-font\" style=\"line-height: 36px;\"> <div> <label>{{$parent.locale[\"heading\"]}}:</label> <button v-for=\"h in 6\" type=\"button\" @click=\"setHeading(h)\">H{{h}}</button> </div> <div> <label> {{$parent.locale[\"font name\"]}}: </label> <button v-for=\"name in nameList\" type=\"button\" @click=\"setFontName(name)\">{{name}}</button> </div> <div> <label> {{$parent.locale[\"font size\"]}}: </label> <button v-for=\"size in fontSizeList\" type=\"button\" @click=\"setFontSize(size)\">{{size}}</button> </div> <div> <label> {{$parent.locale[\"line height\"]}}: </label> <button v-for=\"lh in lineHeightList\" type=\"button\" @click=\"setLineHeight(lh)\"> {{lh}} </button> </div> </div>";
 
 /**
  * Created by peak on 2017/2/14.
@@ -307,7 +308,7 @@ var t=new Array(arguments.length-1);if(arguments.length>1){ for(var n=1;n<argume
 e.exports=window.lrz;}])});
 });
 
-var template$3 = "<div> <div v-show=\"upload.status=='ready'\"> <input type=\"text\" v-model=\"imageUrl\" maxlength=\"255\" :placeholder=\"$parent.locale['please enter a url']\"> <button type=\"button\" @click=\"insertImageUrl\">{{$parent.locale.save}}</button> <input type=\"file\" ref=\"file\" style=\"display: none !important\" @change=\"process\" accept=\"image/png,image/jpeg,image/gif,image/jpg\"> <button type=\"button\" @click=\"pick\">{{$parent.locale.upload}}</button> </div> <div v-if=\"upload.status=='progress'\"> {{$parent.locale.progress}}:{{upload.progressComputable ? $parent.locale.unknown : upload.complete}} </div> <div v-if=\"upload.status=='success'\"> {{$parent.locale[\"please wait\"]}}... </div> <div v-if=\"upload.status=='error'\"> {{$parent.locale.error}}:{{upload.errorMsg}} <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> <div v-if=\"upload.status=='abort'\"> {{$parent.locale.upload}}&nbsp;{{$parent.locale.abort}}, <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> </div> ";
+var template$3 = "<div> <div v-show=\"upload.status=='ready'\"> <input type=\"text\" v-model=\"imageUrl\" maxlength=\"255\" :placeholder=\"$parent.locale['please enter a url']\"> <button type=\"button\" @click=\"insertImageUrl\">{{$parent.locale.save}}</button> <input type=\"file\" ref=\"file\" style=\"display: none !important;\" @change=\"process\" accept=\"image/png,image/jpeg,image/gif,image/jpg\"> <button type=\"button\" @click=\"pick\">{{$parent.locale.upload}}</button> </div> <div v-if=\"upload.status=='progress'\"> {{$parent.locale.progress}}:{{upload.progressComputable ? $parent.locale.unknown : upload.complete}} </div> <div v-if=\"upload.status=='success'\"> {{$parent.locale[\"please wait\"]}}... </div> <div v-if=\"upload.status=='error'\"> {{$parent.locale.error}}:{{upload.errorMsg}} <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> <div v-if=\"upload.status=='abort'\"> {{$parent.locale.upload}}&nbsp;{{$parent.locale.abort}}, <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> </div> ";
 
 /**
  * Created by peak on 2017/2/10.
@@ -326,7 +327,7 @@ var dashboard$3 = {
         }
     },
     methods: {
-        reset: function reset(){
+        reset: function reset() {
             this.upload.status = 'ready';
         },
         insertImageUrl: function insertImageUrl() {
@@ -339,7 +340,7 @@ var dashboard$3 = {
         pick: function pick() {
             this.$refs.file.click();
         },
-        setUploadError: function setUploadError(msg){
+        setUploadError: function setUploadError(msg) {
             this.upload.status = 'error';
             this.upload.errorMsg = msg;
         },
@@ -348,6 +349,10 @@ var dashboard$3 = {
 
             var component = this;
             var config = this.$options.module.config;
+            if (this.$parent.options && this.$parent.options.image) {
+                //如果存在标签参数传入配置 进行合并
+                Object.assign(config, this.$parent.options.image);
+            }
             // compatibility with older format
             // {
             //     server: null,
@@ -373,7 +378,9 @@ var dashboard$3 = {
             // }
 
             if (!config.upload && typeof config.server === 'string') {
-                config.upload = {url: config.server};
+                config.upload = {
+                    url: config.server
+                };
             }
             if (config.upload && !config.upload.url) {
                 config.upload = null;
@@ -398,8 +405,8 @@ var dashboard$3 = {
             this.$refs.file.value = null;
 
             if (config.compress) {
-                config.compress.fieldName = config.upload && config.upload.fieldName
-                    ? config.upload.fieldName : 'image';
+                config.compress.fieldName = config.upload && config.upload.fieldName ?
+                    config.upload.fieldName : 'image';
                 lrz_all_bundle(file, config.compress).then(function (rst) {
                     if (config.upload) {
                         component.uploadToServer(rst.file);
@@ -462,7 +469,7 @@ var dashboard$3 = {
             };
 
             xhr.onload = function () {
-                if (xhr.status !== 200) {
+                if (xhr.status >= 300) {
                     this$1.setUploadError(("request error,code " + (xhr.status)));
                     return
                 }
@@ -1169,7 +1176,7 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
     }
 };
 
-__$styleInject(".vue-html5-editor,.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor{font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden}.vue-html5-editor.full-screen{position:fixed!important;top:0!important;left:0!important;bottom:0!important;right:0!important;border-radius:0}.vue-html5-editor>.toolbar{position:relative;background-color:inherit}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline-block;vertical-align:middle}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=text],.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.content{overflow:auto;padding:10px}.vue-html5-editor>.content:focus{outline:0}",undefined);
+__$styleInject(".vue-html5-editor{font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:0!important;left:0!important;bottom:0!important;right:0!important;border-radius:0}.vue-html5-editor>.toolbar{position:relative;background-color:inherit}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline-block;vertical-align:middle}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.content{overflow:auto;padding:10px}.vue-html5-editor>.content:focus{outline:0}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
 
 var template$9 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\" :style=\"{'z-index':zIndex}\"> <div class=\"toolbar\" :style=\"{'z-index':zIndex+1}\" ref=\"toolbar\"> <ul> <template v-for=\"module in modules\"> <li :title=\"locale[module.i18n]\" @click=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{locale[module.i18n]}} </template> </li> </template> </ul> <div class=\"dashboard\" v-show=\"dashboard\" ref=\"dashboard\"> <keep-alive> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </keep-alive> </div> </div> <div class=\"content\" ref=\"content\" :style=\"contentStyle\" contenteditable @click=\"toggleDashboard(dashboard)\"> </div> </div>";
 
@@ -1187,7 +1194,7 @@ var editor = {
         height: {
             type: Number,
             default: 300,
-            validator: function validator(val){
+            validator: function validator(val) {
                 return val >= 100
             }
         },
@@ -1199,9 +1206,13 @@ var editor = {
             type: Boolean,
             default: true
         },
-        showModuleName: {}
+        showModuleName: {},
+        options: {
+            type: Object,
+            default: {}
+        }
     },
-    data: function data(){
+    data: function data() {
         return {
             // defaultShowModuleName:false
             // locale: {},
@@ -1216,8 +1227,9 @@ var editor = {
             if (val !== content) {
                 this.$refs.content.innerHTML = val;
             }
+            this.$emit('update:content', val);
         },
-        fullScreen: function fullScreen(val){
+        fullScreen: function fullScreen(val) {
             var component = this;
             if (val) {
                 component.parentEl = component.$el.parentNode;
@@ -1233,7 +1245,7 @@ var editor = {
         }
     },
     computed: {
-        contentStyle: function contentStyle(){
+        contentStyle: function contentStyle() {
             var style = {};
             if (this.fullScreen) {
                 style.height = (window.innerHeight - this.$refs.toolbar.clientHeight - 1) + "px";
@@ -1248,22 +1260,22 @@ var editor = {
         }
     },
     methods: {
-        toggleFullScreen: function toggleFullScreen(){
+        toggleFullScreen: function toggleFullScreen() {
             this.fullScreen = !this.fullScreen;
         },
-        enableFullScreen: function enableFullScreen(){
+        enableFullScreen: function enableFullScreen() {
             this.fullScreen = true;
         },
-        exitFullScreen: function exitFullScreen(){
+        exitFullScreen: function exitFullScreen() {
             this.fullScreen = false;
         },
-        focus: function focus(){
+        focus: function focus() {
             this.$refs.content.focus();
         },
-        toggleDashboard: function toggleDashboard(dashboard){
+        toggleDashboard: function toggleDashboard(dashboard) {
             this.dashboard = this.dashboard === dashboard ? null : dashboard;
         },
-        execCommand: function execCommand(command, arg){
+        execCommand: function execCommand(command, arg) {
             this.restoreSelection();
             if (this.range) {
                 new RangeHandler(this.range).execCommand(command, arg);
@@ -1271,10 +1283,10 @@ var editor = {
             this.toggleDashboard();
             this.$emit('change', this.$refs.content.innerHTML);
         },
-        getCurrentRange: function getCurrentRange(){
+        getCurrentRange: function getCurrentRange() {
             return this.range
         },
-        saveCurrentRange: function saveCurrentRange(){
+        saveCurrentRange: function saveCurrentRange() {
             var this$1 = this;
 
             var selection = window.getSelection ? window.getSelection() : document.getSelection();
@@ -1295,7 +1307,7 @@ var editor = {
                 }
             }
         },
-        restoreSelection: function restoreSelection(){
+        restoreSelection: function restoreSelection() {
             var selection = window.getSelection ? window.getSelection() : document.getSelection();
             selection.removeAllRanges();
             if (this.range) {
@@ -1311,7 +1323,7 @@ var editor = {
                 this.range = range;
             }
         },
-        activeModule: function activeModule(module){
+        activeModule: function activeModule(module) {
             if (typeof module.handler === 'function') {
                 module.handler(this);
                 return
@@ -1321,7 +1333,7 @@ var editor = {
             }
         }
     },
-    created: function created(){
+    created: function created() {
         var this$1 = this;
 
         this.modules.forEach(function (module) {
@@ -1330,7 +1342,7 @@ var editor = {
             }
         });
     },
-    mounted: function mounted(){
+    mounted: function mounted() {
         var this$1 = this;
 
         var content = this.$refs.content;
@@ -1353,13 +1365,13 @@ var editor = {
 
         window.addEventListener('touchend', this.touchHandler, false);
     },
-    updated: function updated(){
+    updated: function updated() {
         // update dashboard style
-        if (this.$refs.dashboard){
+        if (this.$refs.dashboard) {
             this.$refs.dashboard.style.maxHeight = (this.$refs.content.clientHeight) + "px";
         }
     },
-    beforeDestroy: function beforeDestroy(){
+    beforeDestroy: function beforeDestroy() {
         var this$1 = this;
 
         window.removeEventListener('touchend', this.touchHandler);
