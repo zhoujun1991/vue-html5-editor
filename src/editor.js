@@ -30,7 +30,7 @@ export default {
         showModuleName: {},
         action: {
             type: String,
-            // required: true,
+            required: true,
             default: ''
         },
         options: {
