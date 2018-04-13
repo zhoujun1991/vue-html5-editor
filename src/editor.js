@@ -30,12 +30,14 @@ export default {
         showModuleName: {},
         action: {
             type: String,
-            required: true,
+            // required: true,
             default: ''
         },
         options: {
             type: Object,
-            default: {}
+            default() {
+                return {}
+            }
         }
     },
     data() {
@@ -117,7 +119,7 @@ export default {
             if (!selection.rangeCount) {
                 return
             }
-            const {content} = this.$refs.content
+
             for (let i = 0; i < selection.rangeCount; i++) {
                 const range = selection.getRangeAt(0)
                 let start = range.startContainer
@@ -125,7 +127,7 @@ export default {
                 // for IE11 : node.contains(textNode) always return false
                 start = start.nodeType === Node.TEXT_NODE ? start.parentNode : start
                 end = end.nodeType === Node.TEXT_NODE ? end.parentNode : end
-                if (content.contains(start) && content.contains(end)) {
+                if (this.$refs.content.contains(start) && this.$refs.content.contains(end)) {
                     this.range = range
                     break
                 }
@@ -137,10 +139,9 @@ export default {
             if (this.range) {
                 selection.addRange(this.range)
             } else {
-                const {content} = this.$refs.content
                 const div = document.createElement('div')
                 const range = document.createRange()
-                content.appendChild(div)
+                this.$refs.content.appendChild(div)
                 range.setStart(div, 0)
                 range.setEnd(div, 0)
                 selection.addRange(range)
@@ -165,20 +166,19 @@ export default {
         })
     },
     mounted() {
-        const {content} = this.$refs.content
-        content.innerHTML = this.content
-        content.addEventListener('mouseup', this.saveCurrentRange, false)
-        content.addEventListener('keyup', () => {
-            this.$emit('change', content.innerHTML)
+        this.$refs.content.innerHTML = this.content
+        this.$refs.content.addEventListener('mouseup', this.saveCurrentRange, false)
+        this.$refs.content.addEventListener('keyup', () => {
+            this.$emit('change', this.$refs.content.innerHTML)
             this.saveCurrentRange()
         }, false)
-        content.addEventListener('mouseout', (e) => {
-            if (e.target === content) {
+        this.$refs.content.addEventListener('mouseout', (e) => {
+            if (e.target === this.$refs.content) {
                 this.saveCurrentRange()
             }
         }, false)
         this.touchHandler = (e) => {
-            if (content.contains(e.target)) {
+            if (this.$refs.content.contains(e.target)) {
                 this.saveCurrentRange()
             }
         }

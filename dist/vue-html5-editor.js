@@ -1,7 +1,7 @@
 /**
  * Vue-html5-editor 1.1.0
  * https://github.com/PeakTai/vue-html5-editor
- * build at Fri Apr 13 2018 16:26:00 GMT+0800 (中国标准时间)
+ * build at Fri Apr 13 2018 18:06:09 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -1197,12 +1197,14 @@
             showModuleName: {},
             action: {
                 type: String,
-                required: true,
+                // required: true,
                 default: ''
             },
             options: {
                 type: Object,
-                default: {}
+                default: function default$1() {
+                    return {}
+                }
             }
         },
         data: function data() {
@@ -1286,8 +1288,7 @@
                 if (!selection.rangeCount) {
                     return
                 }
-                var ref = this.$refs.content;
-                var content = ref.content;
+
                 for (var i = 0; i < selection.rangeCount; i++) {
                     var range = selection.getRangeAt(0);
                     var start = range.startContainer;
@@ -1295,7 +1296,7 @@
                     // for IE11 : node.contains(textNode) always return false
                     start = start.nodeType === Node.TEXT_NODE ? start.parentNode : start;
                     end = end.nodeType === Node.TEXT_NODE ? end.parentNode : end;
-                    if (content.contains(start) && content.contains(end)) {
+                    if (this$1.$refs.content.contains(start) && this$1.$refs.content.contains(end)) {
                         this$1.range = range;
                         break
                     }
@@ -1307,11 +1308,9 @@
                 if (this.range) {
                     selection.addRange(this.range);
                 } else {
-                    var ref = this.$refs.content;
-                    var content = ref.content;
                     var div = document.createElement('div');
                     var range = document.createRange();
-                    content.appendChild(div);
+                    this.$refs.content.appendChild(div);
                     range.setStart(div, 0);
                     range.setEnd(div, 0);
                     selection.addRange(range);
@@ -1340,21 +1339,19 @@
         mounted: function mounted() {
             var this$1 = this;
 
-            var ref = this.$refs.content;
-            var content = ref.content;
-            content.innerHTML = this.content;
-            content.addEventListener('mouseup', this.saveCurrentRange, false);
-            content.addEventListener('keyup', function () {
-                this$1.$emit('change', content.innerHTML);
+            this.$refs.content.innerHTML = this.content;
+            this.$refs.content.addEventListener('mouseup', this.saveCurrentRange, false);
+            this.$refs.content.addEventListener('keyup', function () {
+                this$1.$emit('change', this$1.$refs.content.innerHTML);
                 this$1.saveCurrentRange();
             }, false);
-            content.addEventListener('mouseout', function (e) {
-                if (e.target === content) {
+            this.$refs.content.addEventListener('mouseout', function (e) {
+                if (e.target === this$1.$refs.content) {
                     this$1.saveCurrentRange();
                 }
             }, false);
             this.touchHandler = function (e) {
-                if (content.contains(e.target)) {
+                if (this$1.$refs.content.contains(e.target)) {
                     this$1.saveCurrentRange();
                 }
             };
@@ -1589,6 +1586,18 @@
             components: components
         });
         mixin(this, compo);
+    };
+
+    /**
+     * global install
+     *
+     * @param Vue
+     * @param options
+     */
+    VueHtml5Editor.install = function install (Vue, options) {
+            if ( options === void 0 ) options = {};
+
+        Vue.component(options.name || 'vue-html5-editor', new VueHtml5Editor(options));
     };
 
     return VueHtml5Editor;
