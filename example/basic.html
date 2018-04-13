@@ -26,7 +26,7 @@
     </p>
 
     <vue-html5-editor :content="content" :height="300" :show-module-name="showModuleName"
-                      @change="updateData" ref="editor"></vue-html5-editor>
+                      @change="updateData" ref="editor" :options="{image:{sizeLimit:100}}"></vue-html5-editor>
 </div>
 
 <script>
@@ -46,6 +46,7 @@
         data: {
             content: "<h3>vue html5 editor</h3>",
             showModuleName: false,
+
         },
         methods: {
             updateData: function (data) {

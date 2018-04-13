@@ -147,7 +147,6 @@ Vue.use(VueHtml5Editor, {
             "full screen": "全屏",
             "text": "排版",
             "eraser": "格式清除",
-            "info": "关于",
             "color": "颜色",
             "please enter a url": "请输入地址",
             "create link": "创建链接",

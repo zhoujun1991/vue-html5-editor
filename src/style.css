@@ -22,11 +22,9 @@
   border-radius: var(--border-radius);
   overflow: hidden;
   box-sizing: border-box;
-
   & * {
     box-sizing: border-box;
   }
-
   &.full-screen {
     position: fixed !important;
     top: 0 !important;
@@ -35,18 +33,15 @@
     right: 0 !important;
     border-radius: 0;
   }
-
-  & > .toolbar {
+  &>.toolbar {
     position: relative;
     background-color: inherit;
-
-    & > ul {
+    &>ul {
       list-style: none;
       padding: 0;
       margin: 0;
       border-bottom: 1px solid var(--border-color);
-
-      & > li {
+      &>li {
         display: inline-block;
         cursor: pointer;
         text-align: center;
@@ -60,8 +55,7 @@
         }
       }
     }
-
-    & > .dashboard {
+    &>.dashboard {
       background-color: inherit;
       border-bottom: 1px solid var(--border-color);
       padding: 10px;
@@ -70,28 +64,26 @@
       left: 0;
       right: 0;
       overflow: auto;
-
-      & input[type='text'], & input[type='number'], & select {
+      &> input[type='text'],
+      & input[type='number'],
+      & select {
         padding: 6px 12px;
         color: inherit;
         background-color: transparent;
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius);
-
         &:hover {
           border-color: color(var(--border-color) blackness(30%));
         }
-
-        &[disabled], &[readonly] {
+        &[disabled],
+        &[readonly] {
           background-color: #eee;
           opacity: 1;
         }
-
         &[disabled] {
           cursor: not-allowed;
         }
       }
-
       & button {
         color: inherit;
         background-color: inherit;
@@ -104,48 +96,44 @@
         border-radius: var(--border-radius);
         margin-right: 4px;
         margin-bottom: 4px;
-
         &:hover {
           border-color: color(var(--border-color) blackness(30%));
         }
-
         &[disabled] {
           cursor: not-allowed;
           opacity: .68;
         }
-
         &:last-child {
           margin-right: 0;
         }
       }
-
-      & input, button, select {
+      & input,
+      button,
+      select {
         line-height: normal;
       }
-
       & label {
         font-weight: bolder;
       }
-
     }
-
   }
-  & > .content {
+  &>.content {
     overflow: auto;
     padding: 10px;
-
     &:focus {
       outline: 0;
     }
-
   }
-
 }
 
 @media (max-width: 767px) {
   .vue-html5-editor {
     .dashboard {
-      label, input[type='text'], input[type='number'], button, select {
+      label,
+      input[type='text'],
+      input[type='number'],
+      button,
+      select {
         display: block;
         margin-bottom: 5px;
         width: 100% !important;
@@ -160,7 +148,10 @@
 @media (min-width: 768px) {
   .vue-html5-editor {
     .dashboard {
-      label, input, button, select {
+      label,
+      input,
+      button,
+      select {
         display: inline-block;
         margin-right: 4px;
         max-width: 100%;

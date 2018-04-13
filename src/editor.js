@@ -117,7 +117,7 @@ export default {
             if (!selection.rangeCount) {
                 return
             }
-            const content = this.$refs.content
+            const {content} = this.$refs.content
             for (let i = 0; i < selection.rangeCount; i++) {
                 const range = selection.getRangeAt(0)
                 let start = range.startContainer
@@ -137,7 +137,7 @@ export default {
             if (this.range) {
                 selection.addRange(this.range)
             } else {
-                const content = this.$refs.content
+                const {content} = this.$refs.content
                 const div = document.createElement('div')
                 const range = document.createRange()
                 content.appendChild(div)
@@ -165,7 +165,7 @@ export default {
         })
     },
     mounted() {
-        const content = this.$refs.content
+        const {content} = this.$refs.content
         content.innerHTML = this.content
         content.addEventListener('mouseup', this.saveCurrentRange, false)
         content.addEventListener('keyup', () => {

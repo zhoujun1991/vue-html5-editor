@@ -12,7 +12,6 @@ polyfill()
  * @param options {Object}
  */
 class VueHtml5Editor {
-
     /**
      * build an editor component
      */
