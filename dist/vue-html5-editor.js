@@ -1,7 +1,7 @@
 /**
  * Vue-html5-editor 1.1.0
  * https://github.com/PeakTai/vue-html5-editor
- * build at Fri Apr 13 2018 12:09:35 GMT+0800 (中国标准时间)
+ * build at Fri Apr 13 2018 15:00:51 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -376,6 +376,11 @@ var dashboard$3 = {
             //         quality: 80
             //     },
             // }
+            if (this.$parent.action) {
+                config.upload = {
+                    url: this.$parent.action
+                };
+            }
 
             if (!config.upload && typeof config.server === 'string') {
                 config.upload = {
@@ -438,7 +443,9 @@ var dashboard$3 = {
             var this$1 = this;
 
             var config = this.$options.module.config;
-
+            if (this.$parent.action) {
+                config.url = this.$parent.action;
+            }
             var formData = new FormData();
             formData.append(config.upload.fieldName || 'image', file);
 
@@ -1207,6 +1214,11 @@ var editor = {
             default: true
         },
         showModuleName: {},
+        action: {
+            type: String,
+            required: true,
+            default: ''
+        },
         options: {
             type: Object,
             default: {}
@@ -1594,18 +1606,6 @@ var VueHtml5Editor = function VueHtml5Editor(options) {
         components: components
     });
     mixin(this, compo);
-};
-
-/**
- * global install
- *
- * @param Vue
- * @param options
- */
-VueHtml5Editor.install = function install (Vue, options) {
-        if ( options === void 0 ) options = {};
-
-    Vue.component(options.name || 'vue-html5-editor', new VueHtml5Editor(options));
 };
 
 return VueHtml5Editor;

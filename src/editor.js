@@ -28,6 +28,11 @@ export default {
             default: true
         },
         showModuleName: {},
+        action: {
+            type: String,
+            required: true,
+            default: ''
+        },
         options: {
             type: Object,
             default: {}

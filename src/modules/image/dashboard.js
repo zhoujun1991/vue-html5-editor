@@ -66,6 +66,11 @@ export default {
             //         quality: 80
             //     },
             // }
+            if (this.$parent.action) {
+                config.upload = {
+                    url: this.$parent.action
+                };
+            }
 
             if (!config.upload && typeof config.server === 'string') {
                 config.upload = {
@@ -126,7 +131,9 @@ export default {
         },
         uploadToServer(file) {
             const config = this.$options.module.config
-
+            if (this.$parent.action) {
+                config.url = this.$parent.action;
+            }
             const formData = new FormData()
             formData.append(config.upload.fieldName || 'image', file)
 

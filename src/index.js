@@ -95,15 +95,15 @@ class VueHtml5Editor {
         mixin(this, compo)
     }
 
-    /**
-     * global install
-     *
-     * @param Vue
-     * @param options
-     */
-    static install(Vue, options = {}) {
-        Vue.component(options.name || 'vue-html5-editor', new VueHtml5Editor(options))
-    }
+    // /**
+    //  * global install
+    //  *
+    //  * @param Vue
+    //  * @param options
+    //  */
+    // static install(Vue, options = {}) {
+    //     Vue.component(options.name || 'vue-html5-editor', new VueHtml5Editor(options))
+    // }
 }
 
 export default VueHtml5Editor
