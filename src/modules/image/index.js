@@ -29,7 +29,7 @@ export default {
         },
         uploadHandler(responseText){
             const json = JSON.parse(responseText)
-            return json.ok ? json.data : null
+            return json.url ? json.url : null
         }
     },
     dashboard

@@ -241,8 +241,19 @@ export default class RangeHandler {
                 document.execCommand(Command.INSERT_HORIZONTAL_RULE, false)
                 break
             }
-            case Command.INSERT_IMAGE: {
-                document.execCommand(Command.INSERT_IMAGE, false, arg)
+            /* 添加插入图片*/
+            case Command.INSERT_IMAGE:
+            {
+                var fragment = document.createDocumentFragment();
+                var div = document.createElement('div');
+                div.innerHTML = '<img src="'+arg+'" />';
+                if (div.hasChildNodes()) {
+                    for (var i = 0; i < div.childNodes.length; i++) {
+                        fragment.appendChild(div.childNodes[i].cloneNode(true));
+                    }
+                }
+                this.range.deleteContents();
+                this.range.insertNode(fragment);
                 break
             }
             case Command.CREATE_LINK: {
