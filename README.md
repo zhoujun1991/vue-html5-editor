@@ -211,7 +211,8 @@ Vue.use(VueHtml5Editor, {
 # 组件属性 attributes
 
 ```html
-<editor :content="content" :height="500" :z-index="1000" :auto-height="true" :show-module-name="false"></editor>
+<editor :options="{image:{sizeLimit:512 * 1024}}" :action="action" :content="content" :height="500" :z-index="1000" :auto-height="true" :show-module-name="false"></editor>
+//options参考options图片配置模块
 ```
 
 ### content
