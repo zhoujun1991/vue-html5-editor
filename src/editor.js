@@ -109,6 +109,7 @@ export default {
                 new RangeHandler(this.range).execCommand(command, arg)
             }
             this.toggleDashboard()
+            this.$emit('update:content', this.$refs.content.innerHTML)
             this.$emit('change', this.$refs.content.innerHTML)
         },
         getCurrentRange() {
@@ -170,6 +171,7 @@ export default {
         this.$refs.content.addEventListener('mouseup', this.saveCurrentRange, false)
         this.$refs.content.addEventListener('keyup', () => {
             this.$emit('change', this.$refs.content.innerHTML)
+            this.$emit('update:content', this.$refs.content.innerHTML)
             this.saveCurrentRange()
         }, false)
         this.$refs.content.addEventListener('mouseout', (e) => {

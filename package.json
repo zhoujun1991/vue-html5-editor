@@ -8,7 +8,7 @@
   },
   "main": "dist/vue-html5-editor.js",
   "scripts": {
-    "build": "npm run lint && rollup -c rollup.config.js",
+    "build": "npm run lint && rollup -c rollup.config.js && node extratodo.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix -f codeframe src/*"
   },
