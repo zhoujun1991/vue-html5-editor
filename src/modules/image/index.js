@@ -15,7 +15,7 @@ export default {
         // width: 1600,
         // height: 1600,
         // quality: 80,
-        sizeLimit: 512 * 1024,// 512k
+        sizeLimit: 5 * 1024 * 1024, // 5M
         // upload: {
         //     url: null,
         //     headers: {},
@@ -27,7 +27,7 @@ export default {
             height: 1600,
             quality: 80
         },
-        uploadHandler(responseText){
+        uploadHandler(responseText) {
             const json = JSON.parse(responseText)
             return json.url ? json.url : null
         }

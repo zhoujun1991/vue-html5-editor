@@ -1,7 +1,7 @@
 /**
  * Vue-html5-editor 1.1.0
  * https://github.com/PeakTai/vue-html5-editor
- * build at Thu May 10 2018 15:35:32 GMT+0800 (中国标准时间)
+ * build at Thu May 10 2018 17:32:16 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -536,7 +536,7 @@
             // width: 1600,
             // height: 1600,
             // quality: 80,
-            sizeLimit: 512 * 1024,// 512k
+            sizeLimit: 5 * 1024 * 1024, // 5M
             // upload: {
             //     url: null,
             //     headers: {},
@@ -548,7 +548,7 @@
                 height: 1600,
                 quality: 80
             },
-            uploadHandler: function uploadHandler(responseText){
+            uploadHandler: function uploadHandler(responseText) {
                 var json = JSON.parse(responseText);
                 return json.url ? json.url : null
             }
