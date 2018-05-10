@@ -1,7 +1,7 @@
 /**
  * Vue-html5-editor 1.1.0
  * https://github.com/PeakTai/vue-html5-editor
- * build at Mon Apr 16 2018 19:07:55 GMT+0800 (中国标准时间)
+ * build at Thu May 10 2018 15:35:32 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -124,7 +124,7 @@
      */
     var dashboard$1 = {
         template: template$1,
-        data: function data(){
+        data: function data() {
             return {
                 // foreColor,backColor
                 command: 'foreColor',
@@ -133,12 +133,13 @@
                     '#003399', '#006600', '#006633', '#009900', '#330000', '#330033', '#330066',
                     '#333300', '#333366', '#660000', '#660033', '#663300', '#666600', '#666633',
                     '#666666', '#666699', '#990000', '#990033', '#9900CC', '#996600', '#FFCC00',
-                    '#FFCCCC', '#FFCC99', '#FFFF00', '#FF9900', '#CCFFCC', '#CCFFFF', '#CCFF99'
+                    '#FFCCCC', '#FFCC99', '#FFFF00', '#FF9900', '#CCFFCC', '#CCFFFF', '#CCFF99',
+                    '#FF0000'
                 ]
             }
         },
         methods: {
-            changeColor: function changeColor(color){
+            changeColor: function changeColor(color) {
                 this.$parent.execCommand(this.command, color);
             }
         }
