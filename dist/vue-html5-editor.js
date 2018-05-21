@@ -1,7 +1,7 @@
 /**
  * Vue-html5-editor 1.1.0
  * https://github.com/PeakTai/vue-html5-editor
- * build at Thu May 10 2018 17:32:16 GMT+0800 (中国标准时间)
+ * build at Mon May 21 2018 12:15:35 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -316,7 +316,7 @@
 
     });
 
-    var template$3 = "<div> <div v-show=\"upload.status=='ready'\"> <input type=\"text\" v-model=\"imageUrl\" maxlength=\"255\" :placeholder=\"$parent.locale['please enter a url']\"> <button type=\"button\" @click=\"insertImageUrl\">{{$parent.locale.save}}</button> <input type=\"file\" ref=\"file\" style=\"display: none !important;\" @change=\"process\" accept=\"image/png,image/jpeg,image/gif,image/jpg\"> <button type=\"button\" @click=\"pick\">{{$parent.locale.upload}}</button> </div> <div v-if=\"upload.status=='progress'\"> {{$parent.locale.progress}}:{{upload.progressComputable ? $parent.locale.unknown : upload.complete}} </div> <div v-if=\"upload.status=='success'\"> {{$parent.locale[\"please wait\"]}}... </div> <div v-if=\"upload.status=='error'\"> {{$parent.locale.error}}:{{upload.errorMsg}} <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> <div v-if=\"upload.status=='abort'\"> {{$parent.locale.upload}}&nbsp;{{$parent.locale.abort}}, <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> </div> ";
+    var template$3 = "<div> <div v-show=\"upload.status=='ready'\"> <!-- <input type=\"text\" v-model=\"imageUrl\" maxlength=\"255\" :placeholder=\"$parent.locale['please enter a url']\">\r\n        <button type=\"button\" @click=\"insertImageUrl\">{{$parent.locale.save}}</button> --> <input type=\"file\" ref=\"file\" style=\"display: none !important;\" @change=\"process\" accept=\"image/png,image/jpeg,image/gif,image/jpg\"> <button type=\"button\" @click=\"pick\">{{$parent.locale.upload}}</button> </div> <div v-if=\"upload.status=='progress'\"> {{$parent.locale.progress}}:{{upload.progressComputable ? $parent.locale.unknown : upload.complete}} </div> <div v-if=\"upload.status=='success'\"> {{$parent.locale[\"please wait\"]}}... </div> <div v-if=\"upload.status=='error'\"> {{$parent.locale.error}}:{{upload.errorMsg}} <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> <div v-if=\"upload.status=='abort'\"> {{$parent.locale.upload}}&nbsp;{{$parent.locale.abort}}, <button type=\"button\" @click=\"reset\">{{$parent.locale.reset}}</button> </div> </div> ";
 
     /**
      * Created by peak on 2017/2/10.
